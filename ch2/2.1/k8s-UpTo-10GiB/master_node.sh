@@ -2,7 +2,7 @@
 
 # init kubernetes 
 kubeadm init --token 123456.1234567890123456 --token-ttl 0 \
---pod-network-cidr=172.16.0.0/16 --apiserver-advertise-address=192.168.1.10
+--pod-network-cidr=172.16.0.0/16 --apiserver-advertise-address=192.168.56.10
 
 # config for master node only 
 mkdir -p $HOME/.kube
@@ -10,7 +10,7 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 
 # raw_address for gitcontent
-raw_git="raw.githubusercontent.com/sysnet4admin/IaC/master/manifests" 
+raw_git="raw.githubusercontent.com/pcspapa/_Lecture_k8s_learning.kit/main/ch2/2.1/IaC/" 
 
 # config for kubernetes's network 
 kubectl apply -f https://$raw_git/172.16_net_calico_v1.yaml
@@ -18,7 +18,7 @@ kubectl apply -f https://$raw_git/172.16_net_calico_v1.yaml
 # config metallb for LoadBalancer service
 kubectl apply -f https://$raw_git/svc/metallb-0.9.6.yaml
 
-# create configmap for metallb (192.168.1.11 - 19)
+# create configmap for metallb (192.168.56.11 - 19)
 kubectl apply -f https://$raw_git/svc/metallb-l2config.yaml
 
 # create secret for metallb 
